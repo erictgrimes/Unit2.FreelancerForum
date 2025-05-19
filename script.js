@@ -117,10 +117,6 @@ const addFreelancer = () => {
 
   renderFreelancers();
 };
-//need to find the average of all starting prices
-//let average = {
-//    for()
-//}
-
+const average = 
 setInterval(addFreelancer, 3000);
 structure();
