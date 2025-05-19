@@ -1,5 +1,5 @@
 //initial array of freelancers
-let freelancer = [
+let freelancers = [
   {
     name: "Alice",
     occupation: "Writer",
@@ -13,7 +13,7 @@ let freelancer = [
 ];
 
 //freelancers to be added overtime
-let newFreelancer = [
+let newFreelancers = [
   {
     name: "Carol",
     occupation: "programmer",
@@ -59,32 +59,68 @@ function structure() {
   h1.innerHTML = "Freelancer Forum";
   root.append(h1);
 
+  //have to add template literal for average
   const p = document.createElement("p");
-  p.innerHTML = `The average starting price is `;
+  p.innerHTML = `The average starting price is`;
   root.append(p);
 
   const h2 = document.createElement("h2");
   h2.innerHTML = "Available Freelancers";
   root.append(h2);
 
-  const freelancerTable = document.createHTML("table");
-  const thead = document.createHTML("thead");
-  const tbody = document.createHTML("tbody");
+  //creates elements of table
+  const freelanceTable = document.createElement("table");
+  const thead = document.createElement("thead");
+  const tbody = document.createElement("tbody");
 
-  for (let key of Object.keys(freelancer[0])) {
+  //creates thead names for all keys
+  freelanceTable.appendChild(thead);
+  for (let key of Object.keys(freelancers[0])) {
     const th = document.createElement("th");
-    th.innerHTML(key);
+    th.innerText = key;
     thead.appendChild(th);
   }
-  freelancerTable.appendChild(thead);
-  freelancerTable.appendChild(tbody);
-  root.append(freelancerTable);
 
-  //renderFreelancers();
+  freelanceTable.appendChild(tbody);
+  root.appendChild(freelanceTable);
+  renderFreelancers();
 }
 
-//function renderFreelancers() {
-//  const freelancerTable = document.querySelector("tbody");
+function renderFreelancers() {
+  const freelancerTable = document.querySelector("tbody");
+  const freelancerValue = freelancers.map((freelancer) => {
+    const row = document.createElement("tr");
+    const freeName = document.createElement("td");
+    freeName.innerHTML = freelancer.name;
+
+    const freeOccupation = document.createElement("td");
+    freeOccupation.innerHTML = freelancer.occupation;
+
+    const freePrice = document.createElement("td");
+    freePrice.innerHTML = freelancer.price;
+
+    row.appendChild(freeName);
+    row.appendChild(freeOccupation);
+    row.appendChild(freePrice);
+
+    return row;
+  });
+
+  freelancerTable.replaceChildren(...freelancerValue);
+}
+
+const addFreelancer = () => {
+  const newFreelancer =
+    newFreelancers[Math.floor(Math.random() * newFreelancers.length)];
+
+  freelancers.push(newFreelancer);
+
+  renderFreelancers();
+};
+//need to find the average of all starting prices
+//let average = {
+//    for()
 //}
 
+setInterval(addFreelancer, 3000);
 structure();

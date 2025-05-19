@@ -11,3 +11,7 @@ html {
   margin: 3rem;
   padding: 1rem;
 }
+
+table {
+  display: inline;
+}
