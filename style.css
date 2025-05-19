@@ -1,0 +1,13 @@
+html {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+#root {
+  border: 2px, solid, white;
+  margin: 3rem;
+  padding: 1rem;
+}
