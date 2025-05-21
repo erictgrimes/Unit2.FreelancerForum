@@ -13,43 +13,8 @@ let freelancers = [
 ];
 
 //freelancers to be added overtime
-let newFreelancers = [
-  {
-    name: "Carol",
-    occupation: "programmer",
-    price: 70,
-  },
-  {
-    name: "Frank",
-    occupation: "Handyman",
-    price: 80,
-  },
-  {
-    name: "Beverly",
-    occupation: "designer",
-    price: 120,
-  },
-  {
-    name: "Richard",
-    occupation: "Finance",
-    price: 50,
-  },
-  {
-    name: "Dr. Henly",
-    occupation: "Nutritionist",
-    price: 40,
-  },
-  {
-    name: "Marco",
-    occupation: "Plummer",
-    price: 80,
-  },
-  {
-    name: "Leslie",
-    occupation: "Wedding Planner",
-    price: 100,
-  },
-];
+const randomName = ["Allen", "Jake", "Beverly", "Richard", "Blake", "Jerry"];
+const randomOccupation = ["Writer", "Plummer", "Handyman", "Designer", "CPA"];
 
 //table structure
 function structure() {
@@ -59,10 +24,10 @@ function structure() {
   h1.innerHTML = "Freelancer Forum";
   root.append(h1);
 
-  //have to add template literal for average
-  const p = document.createElement("p");
-  p.innerHTML = `The average starting price is`;
-  root.append(p);
+  const avgDiv = document.createElement("div");
+  avgDiv.setAttribute("id", "avgPrice");
+  root.append(avgDiv);
+  renderAverage();
 
   const h2 = document.createElement("h2");
   h2.innerHTML = "Available Freelancers";
@@ -108,15 +73,29 @@ function renderFreelancers() {
 
   freelancerTable.replaceChildren(...freelancerValue);
 }
-
-const addFreelancer = () => {
-  const newFreelancer =
-    newFreelancers[Math.floor(Math.random() * newFreelancers.length)];
-
-  freelancers.push(newFreelancer);
-
-  renderFreelancers();
+const renderAverage = () => {
+  const avgDiv = document.querySelector("#avgPrice");
+  const avgPrice = calcAvg(freelancers);
+  const p = document.createElement("p");
+  p.innerHTML = `The average starting price is $${avgPrice}`;
+  avgDiv.replaceChildren(p);
 };
-const average = 
+
+function calcAvg(arr) {
+  const avgPrice =
+    arr.reduce((total, person) => total + person.price, 0) / arr.length;
+  return avgPrice.toFixed(2);
+}
+
+function addFreelancer() {
+  const name = randomName[Math.floor(Math.random() * randomName.length)];
+  const occupation =
+    randomOccupation[Math.floor(Math.random() * randomOccupation.length)];
+  const price = Math.floor(Math.random() * 100);
+  freelancers.push({ name, occupation, price });
+  renderAverage();
+  renderFreelancers();
+}
+
 setInterval(addFreelancer, 3000);
 structure();
